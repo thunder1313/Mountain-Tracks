@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">Mountain</string>
+    <string name="detail_button">Show track</string>
+</resources>
