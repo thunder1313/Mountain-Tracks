@@ -1,31 +1,27 @@
 package com.example.mountain
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.TextView
+import androidx.fragment.app.Fragment
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
 
 /**
  * A simple [Fragment] subclass.
  * Use the [StoperFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class StoperFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
-
+class StoperFragment(var seconds: Int, var running: Boolean, var wasRunning: Boolean) : Fragment(), View.OnClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
+        if (savedInstanceState != null) {
+            seconds = savedInstanceState.getInt("seconds")
+            running = savedInstanceState.getBoolean("running")
+            wasRunning = savedInstanceState.getBoolean("wasRunning")
         }
     }
 
@@ -34,26 +30,72 @@ class StoperFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_stoper, container, false)
+        val layout: View = inflater.inflate(R.layout.fragment_stoper, container, false)
+        runStoper(layout)
+        val startButton = layout.findViewById<View>(R.id.start_button) as Button
+        startButton.setOnClickListener(this)
+        val stopButton = layout.findViewById<View>(R.id.stop_button) as Button
+        stopButton.setOnClickListener(this)
+        val resetButton = layout.findViewById<View>(R.id.reset_button) as Button
+        resetButton.setOnClickListener(this)
+        return layout
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment StoperFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            StoperFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
+    override fun onPause() {
+        super.onPause()
+        wasRunning = running
+        running = false
+    }
+
+    override fun onResume() {
+        super.onResume()
+        if (wasRunning) {
+            running = true
+        }
+
+    }
+
+    override fun onClick(v: View) {
+        when (v.id) {
+            R.id.start_button -> onClickStart()
+            R.id.stop_button -> onClickStop()
+            R.id.reset_button -> onClickReset()
+        }
+    }
+    private fun onClickStart() {
+        running = true
+    }
+
+    private fun onClickStop() {
+        running = false
+    }
+
+    private fun onClickReset() {
+        running = false
+        seconds = 0
+    }
+    private fun runStoper(view: View) {
+        val timeView = view.findViewById<View>(R.id.time_view) as TextView
+        val handler = Handler()
+        handler.post(object : Runnable {
+            override fun run() {
+                val hours = seconds / 3600
+                val minutes = seconds % 3600 / 60
+                val secs = seconds % 60
+                val time = String.format("%d:%02d:%02d", hours, minutes, secs)
+                timeView.text = time
+                if (running) {
+                    seconds++
                 }
+                handler.postDelayed(this, 1000)
             }
+        })
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putInt("seconds", seconds)
+        outState.putBoolean("running", running)
+        outState.putBoolean("wasRunning", wasRunning)
     }
 }

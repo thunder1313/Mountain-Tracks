@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.fragment.app.FragmentTransaction
 
 /**
  * A simple [Fragment] subclass.
@@ -16,6 +17,20 @@ class TrackDetailFragment : Fragment() {
     private var trackID: Int = 0
     fun setTrack(id: Int) {
         this.trackID = id
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        if (savedInstanceState == null) {
+            val stoper = StoperFragment(0, false, false)
+            val ft = childFragmentManager.beginTransaction()
+            ft.add(R.id.stoper_container, stoper)
+            ft.addToBackStack(null)
+            ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+            ft.commit()
+        } else {
+            trackID = savedInstanceState.getInt("trackID")
+        }
     }
 
     override fun onCreateView(
