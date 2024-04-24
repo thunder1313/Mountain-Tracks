@@ -1,22 +1,33 @@
 package com.example.mountain
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.OnClickListener
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import coil.load
 
 
-class CustomAdapter(private val dataSet: Array<String>) :
+class CustomAdapter(private val dataSet: Array<Track>) :
     RecyclerView.Adapter<CustomAdapter.ViewHolder>() {
+
     private var onClickListener: OnClickListener? = null
 
+
+    /**
+     * Provide a reference to the type of views that you are using
+     * (custom ViewHolder)
+     */
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val textView: TextView
+        var imageView: ImageView
+        var nameView: TextView
 
         init {
-            // Define click listener for the ViewHolder's View
-            textView = view.findViewById(R.id.list_item)
+            imageView = itemView.findViewById(R.id.image)
+            nameView = itemView.findViewById(R.id.name)
         }
     }
 
@@ -24,20 +35,20 @@ class CustomAdapter(private val dataSet: Array<String>) :
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): ViewHolder {
         // Create a new view, which defines the UI of the list item
         val view = LayoutInflater.from(viewGroup.context)
-            .inflate(R.layout.text_row_item, viewGroup, false)
+            .inflate(R.layout.list_element, viewGroup, false)
 
         return ViewHolder(view)
     }
 
     // Replace the contents of a view (invoked by the layout manager)
     override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
-        // Get element from your dataset at this position and replace the
-        // contents of the view with that element
-        viewHolder.textView.text = dataSet[position]
-        val item = dataSet[position]
+        viewHolder.nameView.text = dataSet[position].name
+        viewHolder.imageView.load(dataSet[position].thumbnail)
+        Log.i("test", dataSet[position].thumbnail)
+
         viewHolder.itemView.setOnClickListener {
             if (onClickListener != null) {
-                onClickListener!!.onClick(position, item)
+                onClickListener!!.onClick(position, dataSet[position] )
             }
         }
     }
@@ -49,8 +60,8 @@ class CustomAdapter(private val dataSet: Array<String>) :
         this.onClickListener = onClickListener
     }
 
-    // onClickListener Interface
     interface OnClickListener {
-        fun onClick(position: Int, model: String)
+        fun onClick(position: Int, model: Track)
     }
+
 }

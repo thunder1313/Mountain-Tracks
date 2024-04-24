@@ -1,75 +1,68 @@
 package com.example.mountain
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.content.Intent
+
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
-
-/**
- * A fragment representing a list of Items.
- */
 class TrackListFragment : Fragment() {
-
-    private var columnCount = 1
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        arguments?.let {
-            columnCount = it.getInt(ARG_COLUMN_COUNT)
-        }
-    }
+    private lateinit var recyclerView: RecyclerView
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.fragment_recycler_view, container, false)
+        // Inflate the layout for this fragment
+        val view = inflater.inflate(R.layout.fragment_list, container, false)
 
-        // Set the adapter
-        if (view is RecyclerView) {
-            with(view) {
-                layoutManager = when {
-                    columnCount <= 1 -> LinearLayoutManager(context)
-                    else -> GridLayoutManager(context, columnCount)
-                }
-                val dataset = Array(Track.tracks.size) { i -> Track.tracks[i].getName() }
-                val customAdapter = CustomAdapter(dataset)
-                val recyclerView: RecyclerView = findViewById(R.id.recycler_view)
-                recyclerView.adapter = customAdapter
+        val adapter = CustomAdapter(Track.tracks)
 
-                customAdapter.setOnClickListener(object :
-                    CustomAdapter.OnClickListener {
-                    override fun onClick(position: Int, model: String) {
-                        val intent = Intent(requireActivity(), DetailActivity::class.java)
-                        intent.putExtra("position", position)
-                        startActivity(intent)
-                    }
-                })
+        recyclerView = view.findViewById(R.id.recyclerView)
+        recyclerView.layoutManager = GridLayoutManager(context, 1)
+        recyclerView.adapter = adapter
+
+        adapter.setOnClickListener(object :
+            CustomAdapter.OnClickListener {
+            override fun onClick(position: Int, model: Track) {
+                onListItemClicked(position, inflater)
             }
+        })
 
-        }
         return view
     }
 
-    companion object {
+    private fun onListItemClicked(position: Int, inflater: LayoutInflater) {
+        val detailContainer = activity?.findViewById<View>(R.id.detail_container)
+        if (detailContainer != null) {
+            swapDetailFragment(position)
+        } else {
+            openNewFragment(position, inflater)
+        }
+    }
 
-        // TODO: Customize parameter argument names
-        const val ARG_COLUMN_COUNT = "column-count"
+    // Handles tablet layout
+    private fun swapDetailFragment(position: Int) {
+        val trail = Track.tracks[position]
+        val detailFragment = TrackDetailFragment.newInstance(trail.id)
 
-        // TODO: Customize parameter initialization
-        @JvmStatic
-        fun newInstance(columnCount: Int) =
-            TrackListFragment().apply {
-                arguments = Bundle().apply {
-                    putInt(ARG_COLUMN_COUNT, columnCount)
-                }
-            }
+        val transaction2 = requireActivity().supportFragmentManager.beginTransaction()
+        transaction2.replace(R.id.detail_container, detailFragment)
+
+        // Add stack entry to handle going back to previous details
+        transaction2.addToBackStack(null)
+        transaction2.commit()
+    }
+
+    // Handles phone layout
+    private fun openNewFragment(position: Int, inflater: LayoutInflater) {
+        val trail = Track.tracks[position]
+        val intent = Intent(inflater.context, DetailActivity::class.java)
+        intent.putExtra("id", trail.id)
+        startActivity(intent)
     }
 }
