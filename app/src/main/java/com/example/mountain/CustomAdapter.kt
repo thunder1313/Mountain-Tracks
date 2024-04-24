@@ -3,7 +3,6 @@ package com.example.mountain
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
-import android.view.View.OnClickListener
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
@@ -11,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import coil.load
 
 
-class CustomAdapter(private val dataSet: Array<Track>) :
+class CustomAdapter(private val dataSet: Array<Trail>) :
     RecyclerView.Adapter<CustomAdapter.ViewHolder>() {
 
     private var onClickListener: OnClickListener? = null
@@ -61,7 +60,7 @@ class CustomAdapter(private val dataSet: Array<Track>) :
     }
 
     interface OnClickListener {
-        fun onClick(position: Int, model: Track)
+        fun onClick(position: Int, model: Trail)
     }
 
 }

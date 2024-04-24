@@ -12,7 +12,7 @@ import android.widget.Button
 
 
 class StopperFragment : Fragment() {
-    private var trail: Track? = null
+    private var trail: Trail? = null
     private var handler = Handler(Looper.getMainLooper())
     private lateinit var timeTextView: TextView
 
@@ -70,7 +70,7 @@ class StopperFragment : Fragment() {
         return view
     }
 
-    fun setTrack(trail: Track?) {
+    fun setTrack(trail: Trail?) {
         this.trail = trail
     }
 

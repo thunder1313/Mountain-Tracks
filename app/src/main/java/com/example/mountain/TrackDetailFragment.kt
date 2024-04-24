@@ -1,22 +1,19 @@
 package com.example.mountain
 
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
-import android.widget.Button
 import android.widget.ListView
 import android.widget.TextView
 import android.widget.Toast
 
 class TrackDetailFragment : Fragment() {
     private var trackID: Int? = null
-    private var trail: Track? = null
+    private var trail: Trail? = null
 
     private lateinit var stopperFragment: StopperFragment
 
@@ -25,7 +22,7 @@ class TrackDetailFragment : Fragment() {
         arguments?.let {
             trackID = it.getInt(ARG_ID)
             Log.d("id", id.toString())
-            trail = Track.tracks.firstOrNull { it.id == trackID } ?: Track.tracks[0]
+            trail = Trail.trails.firstOrNull { it.id == trackID } ?: Trail.trails[0]
             Log.d("trail", trail!!.name)
         }
     }

@@ -20,7 +20,7 @@ class TrackListFragment : Fragment() {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_list, container, false)
 
-        val adapter = CustomAdapter(Track.tracks)
+        val adapter = CustomAdapter(Trail.trails)
 
         recyclerView = view.findViewById(R.id.recyclerView)
         recyclerView.layoutManager = GridLayoutManager(context, 1)
@@ -28,7 +28,7 @@ class TrackListFragment : Fragment() {
 
         adapter.setOnClickListener(object :
             CustomAdapter.OnClickListener {
-            override fun onClick(position: Int, model: Track) {
+            override fun onClick(position: Int, model: Trail) {
                 onListItemClicked(position, inflater)
             }
         })
@@ -47,7 +47,7 @@ class TrackListFragment : Fragment() {
 
     // Handles tablet layout
     private fun swapDetailFragment(position: Int) {
-        val trail = Track.tracks[position]
+        val trail = Trail.trails[position]
         val detailFragment = TrackDetailFragment.newInstance(trail.id)
 
         val transaction2 = requireActivity().supportFragmentManager.beginTransaction()
@@ -60,7 +60,7 @@ class TrackListFragment : Fragment() {
 
     // Handles phone layout
     private fun openNewFragment(position: Int, inflater: LayoutInflater) {
-        val trail = Track.tracks[position]
+        val trail = Trail.trails[position]
         val intent = Intent(inflater.context, DetailActivity::class.java)
         intent.putExtra("id", trail.id)
         startActivity(intent)
