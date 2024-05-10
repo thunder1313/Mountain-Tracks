@@ -24,7 +24,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:height="100dp"
-            android:textSize="50dp" />
+            android:textSize="15dp" />
 
         <androidx.fragment.app.FragmentContainerView
             android:id="@+id/stopper_container"
