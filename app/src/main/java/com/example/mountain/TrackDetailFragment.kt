@@ -33,24 +33,19 @@ class TrackDetailFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Do something with id here...
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_track_detail, container, false)
 
-        val image = view.findViewById<ImageView>(R.id.imageDetail)
         val nameTextView = view.findViewById<TextView>(R.id.trackName)
         val descriptionTextView = view.findViewById<TextView>(R.id.trackDescription)
         val pointsListView = view.findViewById<ListView>(R.id.trackList)
-        val fab = view.findViewById<View>(R.id.fab)
-        fab.setOnClickListener {
-            Toast.makeText(getContext(),"Taking photo..." , Toast.LENGTH_SHORT).show();
-        }
 
-        image.load(trail?.thumbnail)
         nameTextView.text = trail?.name
         descriptionTextView.text = trail?.description
+
         val adapter = ArrayAdapter(inflater.context, android.R.layout.simple_list_item_1, trail?.points ?: arrayOf())        // Set the ArrayAdapter as the ListView's adapter
         pointsListView.adapter = adapter
+
         stopperFragment = StopperFragment()
         stopperFragment.setTrack(trail)
         childFragmentManager.beginTransaction()
