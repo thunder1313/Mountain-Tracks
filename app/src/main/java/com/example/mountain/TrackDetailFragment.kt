@@ -7,9 +7,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
+import android.widget.ImageView
 import android.widget.ListView
 import android.widget.TextView
 import android.widget.Toast
+import coil.load
 
 class TrackDetailFragment : Fragment() {
     private var trackID: Int? = null
@@ -35,15 +37,16 @@ class TrackDetailFragment : Fragment() {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_track_detail, container, false)
 
-        // Assuming you have TextViews with the ids: trail_name, trail_description, trail_points
+        val image = view.findViewById<ImageView>(R.id.imageDetail)
         val nameTextView = view.findViewById<TextView>(R.id.trackName)
         val descriptionTextView = view.findViewById<TextView>(R.id.trackDescription)
         val pointsListView = view.findViewById<ListView>(R.id.trackList)
         val fab = view.findViewById<View>(R.id.fab)
         fab.setOnClickListener {
-            Toast.makeText(getContext(),"photo" , Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(),"Taking photo..." , Toast.LENGTH_SHORT).show();
         }
 
+        image.load(trail?.thumbnail)
         nameTextView.text = trail?.name
         descriptionTextView.text = trail?.description
         val adapter = ArrayAdapter(inflater.context, android.R.layout.simple_list_item_1, trail?.points ?: arrayOf())        // Set the ArrayAdapter as the ListView's adapter
