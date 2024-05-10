@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Mountain</string>
+    <string name="app_name">Mountain Trails</string>
     <string name="detail_button">Show track</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
