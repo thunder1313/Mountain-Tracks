@@ -9,6 +9,11 @@
     android:fitsSystemWindows="true"
     tools:openDrawer="start"
     tools:context=".MainActivity">
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
 
     <LinearLayout
         android:id="@+id/main"
@@ -46,5 +51,16 @@
 
         </LinearLayout>
 
+
     </LinearLayout>
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id = "@+id/start_animation"
+            android:src = "@drawable/logo"
+            android:layout_gravity="center"
+            />
+
+    </FrameLayout>
+
 </androidx.drawerlayout.widget.DrawerLayout>
