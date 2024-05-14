@@ -12,6 +12,7 @@ import androidx.core.view.WindowInsetsCompat
 import android.content.Intent
 import android.os.Handler
 import android.os.Looper
+import android.view.MenuItem
 import android.view.View
 import android.view.animation.AccelerateInterpolator
 import android.widget.ImageView
@@ -20,13 +21,14 @@ import androidx.drawerlayout.widget.DrawerLayout
 import com.google.android.material.navigation.NavigationView
 import androidx.appcompat.app.ActionBarDrawerToggle
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity()
+    , NavigationView.OnNavigationItemSelectedListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_main)
         Handler(Looper.getMainLooper()).postDelayed({
-            Animation()
+            animation()
         }, 1500)
 //        Animation()
 
@@ -41,7 +43,7 @@ class MainActivity : AppCompatActivity() {
         actionBar.title = getString(R.string.app_name)
 
         val drawer = findViewById<DrawerLayout>(R.id.drawer_layout)
-        val navigationView = findViewById<NavigationView>(R.id.nav_view)
+
         val toggle =  ActionBarDrawerToggle(
             this,
             drawer,
@@ -53,6 +55,9 @@ class MainActivity : AppCompatActivity() {
         drawer.addDrawerListener(toggle)
 
         toggle.syncState()
+        val navigationView = findViewById<NavigationView>(R.id.nav_view)
+        navigationView.setNavigationItemSelectedListener(this)
+
     }
 
     fun onShowDetail(view: View) {
@@ -60,7 +65,7 @@ class MainActivity : AppCompatActivity() {
         startActivity(intent);
     }
 
-    fun Animation(){
+    fun animation(){
         val animationView = findViewById<ImageView>(R.id.start_animation)
 
         val spinAnimator = ObjectAnimator.ofFloat(animationView, "rotation", 0f, 360f)
@@ -87,4 +92,9 @@ class MainActivity : AppCompatActivity() {
                 animationView.visibility = View.GONE
     }
 })
-    }}
+    }
+
+    override fun onNavigationItemSelected(p0: MenuItem): Boolean {
+        TODO("Not yet implemented")
+    }
+}
