@@ -28,6 +28,8 @@
             android:height="100dp"
             android:textSize="15dp" />
 
+
+
         <androidx.fragment.app.FragmentContainerView
             android:id="@+id/stopper_container"
             android:layout_width="match_parent"

@@ -40,8 +40,10 @@ class TrackDetailFragment : Fragment() {
         val descriptionTextView = view.findViewById<TextView>(R.id.trackDescription)
         val pointsListView = view.findViewById<ListView>(R.id.trackList)
 
+
         nameTextView.text = trail?.name
         descriptionTextView.text = trail?.description
+
 
         val adapter = ArrayAdapter(inflater.context, android.R.layout.simple_list_item_1, trail?.points ?: arrayOf())        // Set the ArrayAdapter as the ListView's adapter
         pointsListView.adapter = adapter

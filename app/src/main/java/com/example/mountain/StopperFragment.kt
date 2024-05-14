@@ -44,6 +44,8 @@ class StopperFragment : Fragment() {
         val startButton = view.findViewById<Button>(R.id.start_button)
         val stopButton = view.findViewById<Button>(R.id.stop_button)
         val resetButton = view.findViewById<Button>(R.id.reset_button)
+        val saveButton = view.findViewById<Button>(R.id.save_button)
+        val savedTime = view.findViewById<TextView>(R.id.saved_time)
         timeTextView = view.findViewById(R.id.timer)
         timeTextView.text = String.format("%02d:%02d:%02d", trail?.hours, trail?.minutes, trail?.seconds)
         startButton.setOnClickListener {
@@ -56,7 +58,7 @@ class StopperFragment : Fragment() {
 
         resetButton.setOnClickListener {
 
-            trail?.times?.add(String.format("%02d:%02d:%02d", trail?.hours, trail?.minutes, trail?.seconds))
+
             trail?.seconds = 0
             trail?.minutes = 0
             trail?.hours = 0
@@ -64,6 +66,22 @@ class StopperFragment : Fragment() {
             timeTextView.text = String.format("%02d:%02d:%02d", trail?.hours, trail?.minutes, trail?.seconds)
 
             trail?.isRunning = false
+        }
+        saveButton.setOnClickListener{
+            if (trail?.isRunning==false){
+            trail?.savedSeconds = trail?.seconds!!
+            trail?.savedMinutes = trail?.minutes!!
+            trail?.savedHours = trail?.hours!!
+
+            savedTime.text = "Last saved time: "+ String.format("%02d:%02d:%02d",
+                trail?.savedHours,trail?.savedMinutes,trail?.savedSeconds)
+            }else{
+                savedTime.text = "still running, don't cheat"
+
+            }
+
+
+
         }
 
         handler.post(runnable)

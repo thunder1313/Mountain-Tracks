@@ -6,11 +6,13 @@ class Trail(
     val description: String,
     val points: Array<String>,
     val thumbnail: String,
-    var times: MutableList<String> = mutableListOf(), // Ensure times is a MutableList
     var isRunning: Boolean = false,
     var seconds: Int = 0,
     var minutes: Int = 0,
-    var hours: Int = 0
+    var hours: Int = 0,
+    var savedSeconds: Int=0,
+    var savedMinutes: Int=0,
+    var savedHours: Int=0
 ) {
     companion object {
         val trails = arrayOf(
