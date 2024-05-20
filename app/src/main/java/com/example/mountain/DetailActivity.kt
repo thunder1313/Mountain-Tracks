@@ -1,6 +1,8 @@
 package com.example.mountain
 
+import android.content.Intent
 import android.os.Bundle
+import android.view.MenuItem
 import android.view.View
 import android.widget.TextView
 import android.widget.ImageView
@@ -8,11 +10,12 @@ import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import coil.load
 import com.google.android.material.navigation.NavigationView
 
-class DetailActivity : AppCompatActivity() {
+class DetailActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -34,7 +37,6 @@ class DetailActivity : AppCompatActivity() {
         image.load(Trail.trails[id].thumbnail)
 
         val drawer = findViewById<DrawerLayout>(R.id.drawer_layout)
-        val navigationView = findViewById<NavigationView>(R.id.nav_view)
         val toggle =  ActionBarDrawerToggle(
             this,
             drawer,
@@ -42,10 +44,11 @@ class DetailActivity : AppCompatActivity() {
             R.string.open_drawer,
             R.string.close_drawer
         )
-
         drawer.addDrawerListener(toggle)
-
         toggle.syncState()
+
+        val navigationView = findViewById<NavigationView>(R.id.nav_view)
+        navigationView.setNavigationItemSelectedListener(this)
 
         if (id != -1) {
             val fragment = TrackDetailFragment.newInstance(id)
@@ -53,5 +56,32 @@ class DetailActivity : AppCompatActivity() {
             transaction.replace(R.id.trackDetailFragment, fragment)
             transaction.commit()
         }
+    }
+
+    override fun onNavigationItemSelected(item: MenuItem): Boolean {
+        val id = item.itemId
+        var intent: Intent? = null
+
+        when (id) {
+            R.id.drawer_home -> {
+                intent = Intent(this, MainActivity::class.java).apply {
+                    putExtra("fragment", "home")
+                }
+            }
+            R.id.drawer_option1 -> {
+                intent = Intent(this, MainActivity::class.java).apply {
+                    putExtra("fragment", "stats")
+                }
+            }
+            // Add other cases as needed
+        }
+
+        intent?.let {
+            startActivity(it)
+        }
+
+        val drawer = findViewById<DrawerLayout>(R.id.drawer_layout)
+        drawer.closeDrawer(GravityCompat.START)
+        return true
     }
 }
