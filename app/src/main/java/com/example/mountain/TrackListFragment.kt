@@ -67,4 +67,13 @@ class TrackListFragment : Fragment() {
         intent.putExtra("id", trail.id)
         startActivity(intent)
     }
+
+    companion object {
+        private const val ARG_ID = "id"
+        fun newInstance(id: Int) = TrackListFragment().apply {
+            arguments = Bundle().apply {
+                putInt(TrackListFragment.ARG_ID, id)
+            }
+        }
+    }
 }

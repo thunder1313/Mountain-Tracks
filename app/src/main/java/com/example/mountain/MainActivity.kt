@@ -20,7 +20,8 @@ import androidx.appcompat.widget.Toolbar
 import androidx.drawerlayout.widget.DrawerLayout
 import com.google.android.material.navigation.NavigationView
 import androidx.appcompat.app.ActionBarDrawerToggle
-
+import androidx.viewpager.widget.ViewPager
+import 	com.google.android.material.tabs.TabLayout
 class MainActivity : AppCompatActivity()
     , NavigationView.OnNavigationItemSelectedListener {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -37,7 +38,9 @@ class MainActivity : AppCompatActivity()
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-
+        val pagerAdapter = PagerAdapter(supportFragmentManager)
+        val pager = findViewById<ViewPager>(R.id.pager)
+        pager.adapter = pagerAdapter
         val actionBar = findViewById<Toolbar>(R.id.action_bar)
         setSupportActionBar(actionBar)
         actionBar.title = getString(R.string.app_name)
@@ -58,6 +61,9 @@ class MainActivity : AppCompatActivity()
         val navigationView = findViewById<NavigationView>(R.id.nav_view)
         navigationView.setNavigationItemSelectedListener(this)
 
+        val tabLayout  = findViewById<TabLayout>(R.id.tabs)
+        tabLayout.setupWithViewPager(pager)
+
     }
 
     fun onShowDetail(view: View) {
@@ -65,7 +71,7 @@ class MainActivity : AppCompatActivity()
         startActivity(intent);
     }
 
-    fun animation(){
+    private fun animation(){
         val animationView = findViewById<ImageView>(R.id.start_animation)
 
         val spinAnimator = ObjectAnimator.ofFloat(animationView, "rotation", 0f, 360f)
