@@ -9,7 +9,7 @@ import android.view.ViewGroup
 
 
 
-class PagerFragment : Fragment() {
+class WelcomeFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -19,6 +19,14 @@ class PagerFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_pager, container, false)
+        return inflater.inflate(R.layout.fragment_welcome, container, false)
+    }
+    companion object {
+        private const val ARG_ID = "id"
+    fun newInstance(id: Int) = WelcomeFragment().apply {
+        arguments = Bundle().apply {
+            putInt(WelcomeFragment.ARG_ID, id)
+        }
+    }
     }
 }

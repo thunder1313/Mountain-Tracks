@@ -24,12 +24,12 @@ import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import com.google.android.material.navigation.NavigationView
 
-class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
+import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.viewpager.widget.ViewPager
+import 	com.google.android.material.tabs.TabLayout
+class MainActivity : AppCompatActivity() , NavigationView.OnNavigationItemSelectedListener {
 
-    companion object {
-        private const val PREFS_NAME = "MountainAppPrefs"
-        private const val KEY_ANIMATION_SHOWN = "animation_shown"
-    }
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,22 +37,25 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         setContentView(R.layout.activity_main)
 
         // Check if the animation has already been shown
-        Log.d("AnimationDebug", "Animation shown: ${isAnimationShown()}")
-        if (isAnimationShown()) {
-            Handler(Looper.getMainLooper()).postDelayed({
-                animation()
-            }, 1500)
-            setAnimationShown(true) // Set the flag immediately after starting the animation
-        } else {
-            // Hide the animation view if it has already been shown
-            findViewById<ImageView>(R.id.start_animation).visibility = View.GONE
-        }
+        
+        
+        Handler(Looper.getMainLooper()).postDelayed({
+              animation()
+          }, 1500)
+            
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+        val pagerAdapter = PagerAdapter(supportFragmentManager)
+        val pager = findViewById<ViewPager>(R.id.pager)
+
+        if (pager!=null){
+        pager.adapter = pagerAdapter
+        val tabLayout  = findViewById<TabLayout>(R.id.tabs)
+        tabLayout.setupWithViewPager(pager)}
 
         val actionBar = findViewById<Toolbar>(R.id.action_bar)
         setSupportActionBar(actionBar)
@@ -70,33 +73,16 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         val navigationView = findViewById<NavigationView>(R.id.nav_view)
         navigationView.setNavigationItemSelectedListener(this)
 
-        handleIntent(intent) // Handle the intent if the activity is started with an intent
+
     }
 
-    override fun onNewIntent(intent: Intent) {
-        super.onNewIntent(intent)
-        setIntent(intent)
-        handleIntent(intent)
-    }
+  
 
-    private fun handleIntent(intent: Intent) {
-        val fragmentTag = intent.getStringExtra("fragment")
-        var fragment: Fragment? = null
 
-        when (fragmentTag) {
-            "home" -> fragment = TrackListFragment()
-            "stats" -> fragment = StatsFragment()
-            // Handle other fragment tags as needed
-        }
-
-        if (fragment != null) {
-            val ft = supportFragmentManager.beginTransaction()
-            ft.replace(R.id.list_frag, fragment)
-            ft.commit()
-        }
-    }
+  
 
     private fun animation() {
+
         val animationView = findViewById<ImageView>(R.id.start_animation)
         animationView.visibility = View.VISIBLE
 
@@ -127,15 +113,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         })
     }
 
-    private fun isAnimationShown(): Boolean {
-        val preferences = getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
-        return preferences.getBoolean(KEY_ANIMATION_SHOWN, false)
-    }
-
-    private fun setAnimationShown(shown: Boolean) {
-        val preferences = getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
-        preferences.edit().putBoolean(KEY_ANIMATION_SHOWN, shown).apply()
-    }
+    
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         val id = item.itemId
