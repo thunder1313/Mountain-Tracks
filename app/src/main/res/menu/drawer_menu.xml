@@ -2,6 +2,6 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/drawer_import"
-        android:title= "@string/drawer_pager" />
+        android:title= "@string/drawer_option1" />
 
 </menu>

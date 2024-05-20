@@ -2,7 +2,7 @@
     <string name="app_name">Mountain Trails</string>
     <string name="detail_activity_title">Trail Details</string>
     <string name="detail_button">Show track</string>
-    <string name="drawer_pager">Pager fragment</string>
+    <string name="drawer_option1">Test</string>
     <string name="drawer_gallery">Gallery</string>
     <string name="user_name">Hi, XYZ!</string>
     <string name="open_drawer">Open navigation bar</string>
