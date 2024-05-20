@@ -8,6 +8,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import android.view.animation.AccelerateInterpolator
@@ -36,11 +37,12 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         setContentView(R.layout.activity_main)
 
         // Check if the animation has already been shown
+        Log.d("AnimationDebug", "Animation shown: ${isAnimationShown()}")
         if (isAnimationShown()) {
             Handler(Looper.getMainLooper()).postDelayed({
                 animation()
             }, 1500)
-            setAnimationShown(false) // Set the flag immediately after starting the animation
+            setAnimationShown(true) // Set the flag immediately after starting the animation
         } else {
             // Hide the animation view if it has already been shown
             findViewById<ImageView>(R.id.start_animation).visibility = View.GONE
@@ -137,28 +139,25 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         val id = item.itemId
+        var fragment: Fragment? = null
         var intent: Intent? = null
 
         when (id) {
-            R.id.drawer_home -> {
-                intent = Intent(this, MainActivity::class.java).apply {
-                    putExtra("fragment", "home")
-                }
-            }
-            R.id.drawer_option1 -> {
-                intent = Intent(this, MainActivity::class.java).apply {
-                    putExtra("fragment", "stats")
-                }
-            }
-            // Add other cases as needed
+            R.id.drawer_home -> fragment = TrackListFragment()
+            R.id.drawer_option1 -> fragment = StatsFragment()
         }
 
-        intent?.let {
-            startActivity(it)
+        if (fragment != null) {
+            val ft = supportFragmentManager.beginTransaction()
+            ft.replace(R.id.list_frag, fragment)
+            ft.commit()
+        } else if (intent != null) {
+            startActivity(intent)
         }
 
         val drawer = findViewById<DrawerLayout>(R.id.drawer_layout)
         drawer.closeDrawer(GravityCompat.START)
         return true
     }
+
 }
