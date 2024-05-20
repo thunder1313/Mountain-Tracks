@@ -20,6 +20,8 @@ import androidx.appcompat.widget.Toolbar
 import androidx.drawerlayout.widget.DrawerLayout
 import com.google.android.material.navigation.NavigationView
 import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.core.view.GravityCompat
+import androidx.fragment.app.Fragment
 
 class MainActivity : AppCompatActivity()
     , NavigationView.OnNavigationItemSelectedListener {
@@ -94,7 +96,27 @@ class MainActivity : AppCompatActivity()
 })
     }
 
-    override fun onNavigationItemSelected(p0: MenuItem): Boolean {
-        TODO("Not yet implemented")
+    override fun onNavigationItemSelected(item: MenuItem): Boolean {
+        val id = item.itemId
+        var fragment: Fragment? = null
+        var intent: Intent? = null
+
+        when (id) {
+            R.id.drawer_home -> fragment = TrackListFragment()
+            R.id.drawer_option1 -> fragment = StatsFragment()
+        }
+
+        if (fragment != null) {
+            val ft = supportFragmentManager.beginTransaction()
+            ft.replace(R.id.list_frag, fragment)
+            ft.commit()
+        } else {
+            startActivity(intent)
+        }
+
+        val drawer = findViewById<DrawerLayout>(R.id.drawer_layout)
+        drawer.closeDrawer(GravityCompat.START)
+        return true
+
     }
 }
