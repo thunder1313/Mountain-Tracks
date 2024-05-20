@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
+
 class TrackListFragment : Fragment() {
     private lateinit var recyclerView: RecyclerView
 
@@ -22,8 +23,9 @@ class TrackListFragment : Fragment() {
 
         val adapter = CustomAdapter(Trail.trails)
 
+
         recyclerView = view.findViewById(R.id.recyclerView)
-        recyclerView.layoutManager = GridLayoutManager(context, 1)
+        recyclerView.layoutManager = GridLayoutManager(context, 2)
         recyclerView.adapter = adapter
 
         adapter.setOnClickListener(object :

@@ -46,8 +46,12 @@ class StopperFragment : Fragment() {
         val resetButton = view.findViewById<Button>(R.id.reset_button)
         val saveButton = view.findViewById<Button>(R.id.save_button)
         val savedTime = view.findViewById<TextView>(R.id.saved_time)
+        savedTime.text = "Last saved time: "+ String.format("%02d:%02d:%02d",
+            trail?.savedHours,trail?.savedMinutes,trail?.savedSeconds)
+
         timeTextView = view.findViewById(R.id.timer)
         timeTextView.text = String.format("%02d:%02d:%02d", trail?.hours, trail?.minutes, trail?.seconds)
+
         startButton.setOnClickListener {
             trail?.isRunning = true
         }
