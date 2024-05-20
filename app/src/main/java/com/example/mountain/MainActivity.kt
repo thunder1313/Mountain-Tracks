@@ -23,26 +23,16 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import com.google.android.material.navigation.NavigationView
-
-import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.viewpager.widget.ViewPager
 import 	com.google.android.material.tabs.TabLayout
+
 class MainActivity : AppCompatActivity() , NavigationView.OnNavigationItemSelectedListener {
-
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_main)
-
-        // Check if the animation has already been shown
         
-        
-        Handler(Looper.getMainLooper()).postDelayed({
-              animation()
-          }, 1500)
-            
+        Handler(Looper.getMainLooper()).postDelayed({animation()}, 1500)
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
@@ -72,14 +62,7 @@ class MainActivity : AppCompatActivity() , NavigationView.OnNavigationItemSelect
 
         val navigationView = findViewById<NavigationView>(R.id.nav_view)
         navigationView.setNavigationItemSelectedListener(this)
-
-
     }
-
-  
-
-
-  
 
     private fun animation() {
 
@@ -113,7 +96,6 @@ class MainActivity : AppCompatActivity() , NavigationView.OnNavigationItemSelect
         })
     }
 
-    
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         val id = item.itemId
