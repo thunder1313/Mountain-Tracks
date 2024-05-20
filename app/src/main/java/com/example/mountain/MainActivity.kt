@@ -40,7 +40,11 @@ class MainActivity : AppCompatActivity()
         }
         val pagerAdapter = PagerAdapter(supportFragmentManager)
         val pager = findViewById<ViewPager>(R.id.pager)
+        if (pager!=null){
         pager.adapter = pagerAdapter
+        val tabLayout  = findViewById<TabLayout>(R.id.tabs)
+        tabLayout.setupWithViewPager(pager)}
+
         val actionBar = findViewById<Toolbar>(R.id.action_bar)
         setSupportActionBar(actionBar)
         actionBar.title = getString(R.string.app_name)
@@ -61,8 +65,7 @@ class MainActivity : AppCompatActivity()
         val navigationView = findViewById<NavigationView>(R.id.nav_view)
         navigationView.setNavigationItemSelectedListener(this)
 
-        val tabLayout  = findViewById<TabLayout>(R.id.tabs)
-        tabLayout.setupWithViewPager(pager)
+
 
     }
 
