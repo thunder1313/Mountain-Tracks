@@ -12,7 +12,7 @@ import android.view.ViewGroup
 class PagerFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-    }
+    }sfsdfsfs
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
