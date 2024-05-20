@@ -40,6 +40,7 @@ class MainActivity : AppCompatActivity()
         }
         val pagerAdapter = PagerAdapter(supportFragmentManager)
         val pager = findViewById<ViewPager>(R.id.pager)
+
         if (pager!=null){
         pager.adapter = pagerAdapter
         val tabLayout  = findViewById<TabLayout>(R.id.tabs)

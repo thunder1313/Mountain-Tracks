@@ -1,5 +1,6 @@
 package com.example.mountain
 
+import android.content.Context
 import android.content.Intent
 import androidx.core.content.ContextCompat.startActivity
 import androidx.fragment.app.Fragment
@@ -7,6 +8,7 @@ import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 
 class PagerAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm){
+
         override fun getCount(): Int  {
             return 3
         }
@@ -25,7 +27,14 @@ class PagerAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm){
 
 
 
-    override fun getPageTitle(position: Int): CharSequence {
-            return "Strona ${(position + 1)}"
+    override fun getPageTitle(i: Int): CharSequence? {
+             if (i == 0) {
+                return "Welcome page"
+            }else if (i==1){
+                return "Easy Tracks"
+            }else{
+                return "Hard Tracks"
+
+            }
         }
 }

@@ -7,6 +7,8 @@
     <string name="user_name">Hi, XYZ!</string>
     <string name="open_drawer">Open navigation bar</string>
     <string name="close_drawer">Close navigation bar</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="welcome" >Welcome page</string>
+    <string name="easyTracks">Easy Tracks</string>
+    <string name="hardTracks">Hard Tracks</string>
 </resources>
