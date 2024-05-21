@@ -33,7 +33,6 @@ class MainActivity : AppCompatActivity() , NavigationView.OnNavigationItemSelect
         setContentView(R.layout.activity_main)
 
         // Handle extras from DetailActivity
-        val fragmentToOpen = intent.getStringExtra("fragment")
         val tabToOpen = intent.getIntExtra("tab", 0) // Default to the first tab
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
