@@ -71,6 +71,19 @@ class DetailActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelec
             R.id.drawer_home -> {
                 intent = Intent(this, MainActivity::class.java).apply {
                     putExtra("fragment", "home")
+                    putExtra("tab", 0)
+                }
+            }
+            R.id.drawer_easy -> {
+                intent = Intent(this, MainActivity::class.java).apply {
+                    putExtra("fragment", "home")
+                    putExtra("tab", 1)
+                }
+            }
+            R.id.drawer_hard -> {
+                intent = Intent(this, MainActivity::class.java).apply {
+                    putExtra("fragment", "home")
+                    putExtra("tab", 2)
                 }
             }
             R.id.drawer_option1 -> {
