@@ -21,8 +21,8 @@ class PagerAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm){
     override fun getPageTitle(i: Int): CharSequence? {
         return when (i) {
             0 -> "Welcome page"
-            1 -> "Easy Tracks"
-            else -> "Hard Tracks"
+            1 -> "Easy Trails"
+            else -> "Hard Trails"
         }
     }
 }
