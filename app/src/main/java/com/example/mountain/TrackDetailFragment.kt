@@ -48,7 +48,7 @@ class TrackDetailFragment : Fragment() {
         descriptionTextView.text = trail?.description
 
 
-        val adapter = ArrayAdapter(inflater.context, android.R.layout.simple_list_item_1, trail?.points ?: arrayOf())        // Set the ArrayAdapter as the ListView's adapter
+        val adapter = ArrayAdapter(inflater.context, android.R.layout.simple_list_item_1, trail?.points ?: arrayOf())
         pointsListView.adapter = adapter
 
         stopperFragment = StopperFragment()
@@ -61,7 +61,7 @@ class TrackDetailFragment : Fragment() {
 
     companion object {
         private const val ARG_ID = "id"
-        private const val ARG_TAB = "isHard"
+        private const val ARG_TAB = "tabOpened"
 
         fun newInstance(id: Int, tabOpened: Int) = TrackDetailFragment().apply {
             arguments = Bundle().apply {
