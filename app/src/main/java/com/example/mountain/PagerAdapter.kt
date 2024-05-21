@@ -8,33 +8,21 @@ import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 
 class PagerAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm){
-
-        override fun getCount(): Int  {
-            return 3
+    override fun getCount(): Int  {
+        return 3
+    }
+    override fun getItem(i: Int): Fragment {
+        return when (i) {
+            0 -> WelcomeFragment.newInstance(i)
+            1 -> TrackListFragment.newInstance(i)
+            else -> TrackListFragment.newInstance(i)
         }
-
-        override fun getItem(i: Int): Fragment {
-            if (i == 0) {
-                return WelcomeFragment.newInstance(i)
-            }else if (i==1){
-                return TrackListFragment.newInstance(i)
-            }else{
-                return HardTrailFragment.newInstance()
-
-            }
-        }
-
-
-
-
+    }
     override fun getPageTitle(i: Int): CharSequence? {
-             if (i == 0) {
-                return "Welcome page"
-            }else if (i==1){
-                return "Easy Tracks"
-            }else{
-                return "Hard Tracks"
-
-            }
+        return when (i) {
+            0 -> "Welcome page"
+            1 -> "Easy Tracks"
+            else -> "Hard Tracks"
         }
+    }
 }
