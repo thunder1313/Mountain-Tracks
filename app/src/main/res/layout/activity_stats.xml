@@ -8,27 +8,24 @@
     <ImageView
         android:id="@+id/user_photo"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:layout_gravity="center"
-        android:src="@drawable/ic_trails_to_discover"
-        android:contentDescription="@string/user_photo" />
+        android:layout_height="250dp"
+        android:src="@drawable/ic_trails_to_discover" />
 
     <TextView
         android:id="@+id/username"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_gravity="center"
-        android:text="User Name"
+        android:text="Welcome adventurer XYZ!"
         android:textSize="18sp"
-        android:textStyle="bold" />
+        android:textAlignment="center"
+        android:layout_marginTop="16dp" />
 
     <TextView
         android:id="@+id/track_count"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_gravity="center"
-        android:text="Stats: 100"
-        android:textSize="16sp" />
+        android:text="Currently, there are X tracks to discover!"
+        android:textSize="16sp"
+        android:textAlignment="center"
+        android:layout_marginTop="8dp" />
 </LinearLayout>

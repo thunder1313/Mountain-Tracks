@@ -119,7 +119,7 @@ class MainActivity : AppCompatActivity() , NavigationView.OnNavigationItemSelect
             R.id.drawer_home -> switchToTab(0) // Switch to Welcome tab
             R.id.drawer_easy -> switchToTab(1) // Switch to Easy Tracks tab
             R.id.drawer_hard -> switchToTab(2) // Switch to Hard Tracks tab
-            R.id.drawer_option1 -> fragment = StatsFragment() // Example: open a fragment
+            R.id.drawer_option1 -> intent = Intent(this, StatsActivity::class.java)
         }
 
         if (fragment != null) {

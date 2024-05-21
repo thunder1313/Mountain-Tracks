@@ -71,25 +71,20 @@ class DetailActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelec
             R.id.drawer_home -> {
                 intent = Intent(this, MainActivity::class.java).apply {
                     putExtra("fragment", "home")
-                    putExtra("tab", 0)
                 }
             }
             R.id.drawer_easy -> {
                 intent = Intent(this, MainActivity::class.java).apply {
-                    putExtra("fragment", "home")
-                    putExtra("tab", 1)
+                    putExtra("fragment", "easy")
                 }
             }
             R.id.drawer_hard -> {
                 intent = Intent(this, MainActivity::class.java).apply {
-                    putExtra("fragment", "home")
-                    putExtra("tab", 2)
+                    putExtra("fragment", "hard")
                 }
             }
             R.id.drawer_option1 -> {
-                intent = Intent(this, MainActivity::class.java).apply {
-                    putExtra("fragment", "stats")
-                }
+                intent = Intent(this, StatsActivity::class.java)
             }
             // Add other cases as needed
         }
@@ -102,4 +97,5 @@ class DetailActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelec
         drawer.closeDrawer(GravityCompat.START)
         return true
     }
+
 }
