@@ -4,6 +4,8 @@
     <string name="detail_button">Show track</string>
     <string name="drawer_option1">Statistics</string>
     <string name="drawer_home">Home</string>
+    <string name="drawer_easy">Easy Trails</string>
+    <string name="drawer_hard">Hard Trails</string>
     <string name="user_name">Hi, XYZ!</string>
     <string name="open_drawer">Open navigation bar</string>
     <string name="close_drawer">Close navigation bar</string>
@@ -13,6 +15,9 @@
     <string name="easyTracks">Easy Tracks</string>
     <string name="hardTracks">Hard Tracks</string>
 
+    <string name="welcome_image_desc">A landing page image</string>
+    <string name="welcome_message">Welcome to Mountain Trails, adventurer!</string>
+    <string name="welcome_message2">There are so many beautiful places to visit. Let\'s start!</string>
 
     <string name="user_photo">You are a champion!</string>
 

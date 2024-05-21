@@ -4,6 +4,12 @@
         android:id="@+id/drawer_home"
         android:title= "@string/drawer_home" />
     <item
+        android:id="@+id/drawer_easy"
+        android:title= "@string/drawer_easy" />
+    <item
+        android:id="@+id/drawer_hard"
+        android:title= "@string/drawer_hard" />
+    <item
         android:id="@+id/drawer_option1"
         android:title= "@string/drawer_option1" />
 

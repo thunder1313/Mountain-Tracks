@@ -42,10 +42,11 @@ class MainActivity : AppCompatActivity() , NavigationView.OnNavigationItemSelect
         val pagerAdapter = PagerAdapter(supportFragmentManager)
         val pager = findViewById<ViewPager>(R.id.pager)
 
-        if (pager!=null){
-        pager.adapter = pagerAdapter
-        val tabLayout  = findViewById<TabLayout>(R.id.tabs)
-        tabLayout.setupWithViewPager(pager)}
+        if(pager!=null) {
+            pager.adapter = pagerAdapter
+            val tabLayout  = findViewById<TabLayout>(R.id.tabs)
+            tabLayout.setupWithViewPager(pager)
+        }
 
         val actionBar = findViewById<Toolbar>(R.id.action_bar)
         setSupportActionBar(actionBar)
@@ -53,8 +54,11 @@ class MainActivity : AppCompatActivity() , NavigationView.OnNavigationItemSelect
 
         val drawer = findViewById<DrawerLayout>(R.id.drawer_layout)
         val toggle = ActionBarDrawerToggle(
-            this, drawer, actionBar,
-            R.string.open_drawer, R.string.close_drawer
+            this,
+            drawer,
+            actionBar,
+            R.string.open_drawer,
+            R.string.close_drawer
         )
 
         drawer.addDrawerListener(toggle)
