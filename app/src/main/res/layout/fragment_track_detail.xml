@@ -8,14 +8,14 @@
         android:id="@+id/trackName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:height="100dp"
-        android:textSize="50dp" />
+        android:textSize="50dp"
+        android:layout_marginBottom="10px"
+        android:textAlignment="center"/>
 
     <TextView
         android:id="@+id/trackDescription"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:height="100dp"
         android:textSize="15dp"
         android:textAlignment="center"/>
 
@@ -23,6 +23,7 @@
         android:id="@+id/stopper_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
+
     <ListView
         android:id="@+id/trackList"
         android:layout_width="match_parent"
