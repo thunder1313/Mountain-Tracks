@@ -36,8 +36,6 @@ class MainActivity : AppCompatActivity() , NavigationView.OnNavigationItemSelect
         val fragmentToOpen = intent.getStringExtra("fragment")
         val tabToOpen = intent.getIntExtra("tab", 0) // Default to the first tab
 
-        Handler(Looper.getMainLooper()).postDelayed({ animation() }, 1500)
-
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
@@ -70,39 +68,6 @@ class MainActivity : AppCompatActivity() , NavigationView.OnNavigationItemSelect
 
         val navigationView = findViewById<NavigationView>(R.id.nav_view)
         navigationView.setNavigationItemSelectedListener(this)
-    }
-
-
-    private fun animation() {
-
-        val animationView = findViewById<ImageView>(R.id.start_animation)
-        animationView.visibility = View.VISIBLE
-
-        val spinAnimator = ObjectAnimator.ofFloat(animationView, "rotation", 0f, 360f).apply {
-            duration = 2000 // 2 seconds for one rotation
-            repeatCount = ObjectAnimator.INFINITE
-            interpolator = AccelerateInterpolator()
-        }
-
-        val scaleAnimatorX = ObjectAnimator.ofFloat(animationView, "scaleX", 1f, 0f).apply {
-            duration = 2000
-            interpolator = AccelerateInterpolator()
-        }
-
-        val scaleAnimatorY = ObjectAnimator.ofFloat(animationView, "scaleY", 1f, 0f).apply {
-            duration = 2000
-            interpolator = AccelerateInterpolator()
-        }
-
-        spinAnimator.start()
-        scaleAnimatorX.start()
-        scaleAnimatorY.start()
-
-        spinAnimator.addListener(object : AnimatorListenerAdapter() {
-            override fun onAnimationEnd(animation: Animator) {
-                animationView.visibility = View.GONE
-            }
-        })
     }
 
     private fun switchToTab(tabIndex: Int) {

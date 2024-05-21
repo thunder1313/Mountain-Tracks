@@ -52,13 +52,6 @@
 
         </LinearLayout>
 
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id = "@+id/start_animation"
-            android:src = "@drawable/logo"
-            android:layout_gravity="center" />
-
     </FrameLayout>
     <com.google.android.material.navigation.NavigationView
         android:id="@+id/nav_view"
