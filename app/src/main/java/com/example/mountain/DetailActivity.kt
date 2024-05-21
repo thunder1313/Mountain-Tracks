@@ -32,9 +32,14 @@ class DetailActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelec
         }
 
         val id = intent.getIntExtra("id", -1)
+        val openedTab = intent.getIntExtra("tab", -1)
 
         val image = findViewById<ImageView>(R.id.image)
-        image.load(Trail.trails[id].thumbnail)
+        if(openedTab == 1) {
+            image.load(Trail.trails[id].thumbnail)
+        } else {
+            image.load(Trail.hardTrails[id].thumbnail)
+        }
 
         val drawer = findViewById<DrawerLayout>(R.id.drawer_layout)
         val toggle =  ActionBarDrawerToggle(
@@ -51,7 +56,7 @@ class DetailActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelec
         navigationView.setNavigationItemSelectedListener(this)
 
         if (id != -1) {
-            val fragment = TrackDetailFragment.newInstance(id)
+            val fragment = TrackDetailFragment.newInstance(id, openedTab)
             val transaction = supportFragmentManager.beginTransaction()
             transaction.replace(R.id.trackDetailFragment, fragment)
             transaction.commit()

@@ -13,6 +13,14 @@ import androidx.recyclerview.widget.RecyclerView
 
 class TrackListFragment : Fragment() {
     private lateinit var recyclerView: RecyclerView
+    private var openedTabID: Int = 0
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        arguments?.let {
+            openedTabID = it.getInt(ARG_ID)
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -21,7 +29,11 @@ class TrackListFragment : Fragment() {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_list, container, false)
 
-        val adapter = CustomAdapter(Trail.trails)
+        val adapter = when (openedTabID) {
+            1 -> CustomAdapter(Trail.trails)
+            else -> CustomAdapter(Trail.hardTrails)
+        }
+        //val adapter = CustomAdapter(Trail.trails)
 
 
         recyclerView = view.findViewById(R.id.recyclerView)
@@ -50,7 +62,7 @@ class TrackListFragment : Fragment() {
     // Handles tablet layout
     private fun swapDetailFragment(position: Int) {
         val trail = Trail.trails[position]
-        val detailFragment = TrackDetailFragment.newInstance(trail.id)
+        val detailFragment = TrackDetailFragment.newInstance(trail.id, 1)
 
         val transaction2 = requireActivity().supportFragmentManager.beginTransaction()
         transaction2.replace(R.id.detail_container, detailFragment)
@@ -62,9 +74,10 @@ class TrackListFragment : Fragment() {
 
     // Handles phone layout
     private fun openNewFragment(position: Int, inflater: LayoutInflater) {
-        val trail = Trail.trails[position]
+        //val trail = Trail.trails[position]
         val intent = Intent(inflater.context, DetailActivity::class.java)
-        intent.putExtra("id", trail.id)
+        intent.putExtra("id", position)
+        intent.putExtra("tab", openedTabID)
         startActivity(intent)
     }
 

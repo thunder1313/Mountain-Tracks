@@ -15,6 +15,7 @@ import coil.load
 
 class TrackDetailFragment : Fragment() {
     private var trackID: Int? = null
+    private var tab: Int? = null
     private var trail: Trail? = null
 
     private lateinit var stopperFragment: StopperFragment
@@ -23,9 +24,11 @@ class TrackDetailFragment : Fragment() {
         super.onCreate(savedInstanceState)
         arguments?.let {
             trackID = it.getInt(ARG_ID)
-            Log.d("id", id.toString())
-            trail = Trail.trails.firstOrNull { it.id == trackID } ?: Trail.trails[0]
-            Log.d("trail", trail!!.name)
+            tab = it.getInt(ARG_TAB)
+            trail = when(tab) {
+                1 -> Trail.trails.firstOrNull { it.id == trackID } ?: Trail.trails[0]
+                else -> Trail.hardTrails.firstOrNull { it.id == trackID } ?: Trail.hardTrails[0]
+            }
         }
     }
 
@@ -58,10 +61,12 @@ class TrackDetailFragment : Fragment() {
 
     companion object {
         private const val ARG_ID = "id"
+        private const val ARG_TAB = "isHard"
 
-        fun newInstance(id: Int) = TrackDetailFragment().apply {
+        fun newInstance(id: Int, tabOpened: Int) = TrackDetailFragment().apply {
             arguments = Bundle().apply {
                 putInt(ARG_ID, id)
+                putInt(ARG_TAB, tabOpened)
             }
         }
     }
