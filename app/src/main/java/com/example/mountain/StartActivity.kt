@@ -5,17 +5,27 @@ import android.animation.AnimatorListenerAdapter
 import android.animation.ObjectAnimator
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.View
 import android.view.animation.AccelerateInterpolator
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 
 class StartActivity : AppCompatActivity() {
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_start)
-        animation()
+
+        // Animation + delay last for 3 seconds
+        Handler(Looper.getMainLooper()).postDelayed({
+            animation()
+        }, 1000)
+
+        // after 3,2 seconds start MainActivity
+        Handler(Looper.getMainLooper()).postDelayed({
+            startMainActivity()
+        }, 3200)
     }
 
     private fun animation() {
@@ -41,13 +51,6 @@ class StartActivity : AppCompatActivity() {
         spinAnimator.start()
         scaleAnimatorX.start()
         scaleAnimatorY.start()
-
-        spinAnimator.addListener(object : AnimatorListenerAdapter() {
-            override fun onAnimationEnd(animation: Animator) {
-                animationView.visibility = View.GONE
-                startMainActivity()
-            }
-        })
     }
 
     private fun startMainActivity() {
