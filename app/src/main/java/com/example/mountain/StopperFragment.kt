@@ -1,5 +1,6 @@
 package com.example.mountain
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -35,6 +36,7 @@ class StopperFragment : Fragment() {
         }
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -61,8 +63,6 @@ class StopperFragment : Fragment() {
         }
 
         resetButton.setOnClickListener {
-
-
             trail?.seconds = 0
             trail?.minutes = 0
             trail?.hours = 0
@@ -77,15 +77,10 @@ class StopperFragment : Fragment() {
             trail?.savedMinutes = trail?.minutes!!
             trail?.savedHours = trail?.hours!!
 
-            savedTime.text = "Last saved time: "+ String.format("%02d:%02d:%02d",
-                trail?.savedHours,trail?.savedMinutes,trail?.savedSeconds)
-            }else{
+            savedTime.text = "Last saved time: "+ String.format("%02d:%02d:%02d", trail?.savedHours,trail?.savedMinutes,trail?.savedSeconds)
+            } else {
                 savedTime.text = "still running, don't cheat"
-
             }
-
-
-
         }
 
         handler.post(runnable)
@@ -95,7 +90,6 @@ class StopperFragment : Fragment() {
     fun setTrack(trail: Trail?) {
         this.trail = trail
     }
-
     override fun onDestroyView() {
         super.onDestroyView()
         handler.removeCallbacks(runnable)

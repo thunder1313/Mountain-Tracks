@@ -15,11 +15,6 @@ class CustomAdapter(private val dataSet: Array<Trail>) :
 
     private var onClickListener: OnClickListener? = null
 
-
-    /**
-     * Provide a reference to the type of views that you are using
-     * (custom ViewHolder)
-     */
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         var imageView: ImageView
         var nameView: TextView
@@ -30,7 +25,6 @@ class CustomAdapter(private val dataSet: Array<Trail>) :
         }
     }
 
-    // Create new views (invoked by the layout manager)
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): ViewHolder {
         // Create a new view, which defines the UI of the list item
         val view = LayoutInflater.from(viewGroup.context)
@@ -39,11 +33,9 @@ class CustomAdapter(private val dataSet: Array<Trail>) :
         return ViewHolder(view)
     }
 
-    // Replace the contents of a view (invoked by the layout manager)
     override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
         viewHolder.nameView.text = dataSet[position].name
         viewHolder.imageView.load(dataSet[position].thumbnail)
-        Log.i("test", dataSet[position].thumbnail)
 
         viewHolder.itemView.setOnClickListener {
             if (onClickListener != null) {
@@ -52,7 +44,6 @@ class CustomAdapter(private val dataSet: Array<Trail>) :
         }
     }
 
-    // Return the size of your dataset (invoked by the layout manager)
     override fun getItemCount() = dataSet.size
 
     fun setOnClickListener(onClickListener: OnClickListener) {

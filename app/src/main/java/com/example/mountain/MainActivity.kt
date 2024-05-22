@@ -86,11 +86,7 @@ class MainActivity : AppCompatActivity() , NavigationView.OnNavigationItemSelect
             R.id.drawer_option1 -> intent = Intent(this, StatsActivity::class.java)
         }
 
-        if (fragment != null) {
-            val ft = supportFragmentManager.beginTransaction()
-            ft.replace(R.id.list_frag, fragment)
-            ft.commit()
-        } else if (intent != null) {
+        if (intent != null) {
             startActivity(intent)
         }
 

@@ -11,7 +11,6 @@ class WelcomeFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -21,10 +20,10 @@ class WelcomeFragment : Fragment() {
     }
     companion object {
         private const val ARG_ID = "id"
-    fun newInstance(id: Int) = WelcomeFragment().apply {
-        arguments = Bundle().apply {
-            putInt(WelcomeFragment.ARG_ID, id)
+        fun newInstance(id: Int) = WelcomeFragment().apply {
+            arguments = Bundle().apply {
+                putInt(WelcomeFragment.ARG_ID, id)
+            }
         }
-    }
     }
 }
